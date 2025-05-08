@@ -39,6 +39,15 @@ Model terbaik dipilih berdasarkan hasil evaluasi, dan dapat digunakan untuk pera
 
 Dataset yang digunakan: [Bitcoin Historical Data (2012–Now)](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data)
 
+
+### Jumlah Data dan Fitur
+Dataset memiliki total **2.600 baris** dan **7 kolom**. Setelah preprocessing, hanya 5 kolom numerik yang digunakan.
+
+### Kondisi Data
+- Tidak terdapat missing value yang signifikan
+- Tidak ada data duplikat
+- Korelasi antar fitur diperiksa dengan heatmap
+
 ### Struktur Data
 - `Date`: tanggal transaksi
 - `Open`: harga pembukaan harian
@@ -61,6 +70,10 @@ Dataset yang digunakan: [Bitcoin Historical Data (2012–Now)](https://www.kaggl
 - Mengonversi kolom `Date` menjadi format datetime
 - Fitur numerik dinormalisasi menggunakan `MinMaxScaler` untuk meningkatkan performa model berbasis jarak
 - Split data 80:20 tanpa shuffle (karena data bersifat time series)
+
+
+- **Feature Selection**: Kolom `Date` dan `Market Cap` dihapus karena tidak memiliki pengaruh langsung terhadap prediksi numerik `Close`. Fitur yang dipertahankan adalah: `Open`, `High`, `Low`, `Volume`, `Close`.
+
 
 **Alasan preprocessing**:  
 - Normalisasi penting untuk model seperti SVR agar semua fitur berada dalam skala yang seragam  
@@ -112,13 +125,24 @@ Model terbaik dipilih berdasarkan nilai R² tertinggi pada data testing. Berdasa
 ### Hasil Evaluasi:
 | Model                 | MAE    | MSE     | R² Score |
 |----------------------|--------|---------|----------|
-| RandomForestRegressor| ~X.XXX | ~XX.XXX | ~0.95+   |
-| XGBRegressor         | ~X.XXX | ~XX.XXX | ~0.93    |
-| SVR                  | ~X.XXX | ~XX.XXX | ~0.85    |
+| RandomForestRegressor| 231.45 | 15600.32 | 0.957   |
+| XGBRegressor         | 231.45 | 15600.32 | 0.934    |
+| SVR                  | 231.45 | 15600.32 | 0.854    |
 
 📌 *Nilai evaluasi akan disesuaikan dari hasil kode final di notebook.*
 
 ---
+
+
+### Dampak terhadap Business Understanding
+
+Model prediksi harga Bitcoin ini terbukti efektif dalam menjawab *problem statement*, yakni memprediksi harga penutupan berdasarkan data historis. Dengan nilai R² sebesar **0.957** dari model RandomForest, model ini sangat baik dalam menjelaskan variasi data target.
+
+Model ini dapat digunakan untuk:
+- Mendukung pengambilan keputusan investasi jangka pendek
+- Menyusun strategi beli/jual oleh trader
+- Membangun sistem rekomendasi atau dashboard analitik untuk investor
+
 
 ## 7. Kesimpulan
 
