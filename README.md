@@ -125,9 +125,9 @@ Model terbaik dipilih berdasarkan nilai R² tertinggi pada data testing. Berdasa
 ### Hasil Evaluasi:
 | Model                 | MAE    | MSE     | R² Score |
 |----------------------|--------|---------|----------|
-| RandomForestRegressor| 9179.32 | 15600.32 | 0.957   |
-| XGBRegressor         | 10122.21 | 15600.32 | 0.934    |
-| SVR                  | 32494.02 | 15600.32 | 0.854    |
+| RandomForestRegressor| 9179.32 | 15520.82 | 0.33   |
+| XGBRegressor         | 10122.21 | 16573.84 | 0.23    |
+| SVR                  | 32494.02 | 41278.32 | -3.76    |
 
 📌 *Nilai evaluasi akan disesuaikan dari hasil kode final di notebook.*
 
