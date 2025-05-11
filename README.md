@@ -41,7 +41,7 @@ Dataset yang digunakan: [Bitcoin Historical Data (2012–Now)](https://www.kaggl
 
 
 ### Jumlah Data dan Fitur
-Dataset memiliki total **2.600 baris** dan **7 kolom**. Setelah preprocessing, hanya 5 kolom numerik yang digunakan.
+Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, hanya 5 kolom numerik yang digunakan.
 
 ### Kondisi Data
 - Tidak terdapat missing value yang signifikan
