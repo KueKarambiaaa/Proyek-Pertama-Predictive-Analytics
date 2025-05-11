@@ -37,8 +37,7 @@ Model terbaik dipilih berdasarkan hasil evaluasi, dan dapat digunakan untuk pera
 
 ## 3. Data Understanding
 
-Dataset yang digunakan: [Bitcoin Historical Data (2018-Now),https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024]
-
+Dataset yang digunakan: [Bitcoin Historical Data (2018-Now)](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024)
 
 ### Jumlah Data dan Fitur
 Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, hanya 5 kolom numerik yang digunakan.
