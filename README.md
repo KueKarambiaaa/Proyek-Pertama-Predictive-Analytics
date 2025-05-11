@@ -80,7 +80,43 @@ Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, 
 
 ---
 
-## 5. Modeling
+
+## 5. Model Development
+
+Langkah-langkah pengembangan model yang dilakukan:
+
+### a. Splitting Data
+Data dibagi menjadi:
+- **Training set (80%)**
+- **Testing set (20%)**
+Pembagian dilakukan **tanpa shuffle**, karena data bersifat deret waktu (time series), sehingga kontinuitas perlu dijaga.
+
+### b. Normalisasi
+Semua fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan `MinMaxScaler`. Hal ini dilakukan untuk:
+- Menyamakan skala antar fitur
+- Meningkatkan performa model berbasis jarak seperti SVR
+- Memastikan stabilitas model neural network (LSTM)
+
+### c. Feature Engineering
+Fitur `Mean_Price` sempat ditambahkan (rata-rata `High` dan `Low`), namun tidak digunakan dalam final modeling. Fitur akhir yang dipilih adalah: `Open`, `High`, `Low`, `Volume`.
+
+### d. Model Training
+Empat model dilatih dan dibandingkan performanya:
+- **RandomForestRegressor**
+- **XGBRegressor**
+- **SVR (Support Vector Regression)**
+- **LSTM (Long Short-Term Memory)**: menggunakan Keras, input diubah ke bentuk 3D
+
+### e. Evaluasi
+Semua model dievaluasi menggunakan metrik:
+- MAE (Mean Absolute Error)
+- MSE (Mean Squared Error)
+- R² Score
+
+Model terbaik dipilih berdasarkan performa tertinggi di data testing.
+
+
+## 6. Modeling
 
 Model yang diuji:
 1. **RandomForestRegressor**  
