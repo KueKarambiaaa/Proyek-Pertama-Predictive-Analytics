@@ -142,7 +142,7 @@ Model terbaik dipilih berdasarkan nilai R² tertinggi pada data testing. Berdasa
 
 ---
 
-## 6. Evaluation
+## 7. Evaluation
 
 ### Metrik Evaluasi:
 - **MAE (Mean Absolute Error)**:  
@@ -179,7 +179,7 @@ Model ini dapat digunakan untuk:
 - Membangun sistem rekomendasi atau dashboard analitik untuk investor
 
 
-## 7. Kesimpulan
+## 8. Kesimpulan
 
 Model regresi berhasil digunakan untuk memprediksi harga penutupan Bitcoin. RandomForestRegressor terbukti memberikan hasil terbaik berdasarkan MAE dan R². Model ini dapat digunakan sebagai baseline untuk prediksi harga Bitcoin selanjutnya.
 
@@ -190,7 +190,7 @@ Model regresi berhasil digunakan untuk memprediksi harga penutupan Bitcoin. Rand
 
 ---
 
-## 8. Referensi
+## 9. Referensi
 
 - Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*
 - McNally, S. et al. (2018). *Predicting the Price of Bitcoin Using Machine Learning*
