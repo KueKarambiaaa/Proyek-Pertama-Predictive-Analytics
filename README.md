@@ -3,7 +3,7 @@
 **Nama**: Rahmi Amilia  
 **Judul Proyek**: Predictive Analytics: Bitcoin Historical Datasets  
 **Domain**: Keuangan / Investasi / Cryptocurrency  
-**Platform Dataset**: [Kaggle - Bitcoin Historical Datasets](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data)
+**Platform Dataset**: [Kaggle - Bitcoin Historical Datasets]([https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024))
 
 ---
 
@@ -37,7 +37,7 @@ Model terbaik dipilih berdasarkan hasil evaluasi, dan dapat digunakan untuk pera
 
 ## 3. Data Understanding
 
-Dataset yang digunakan: [Bitcoin Historical Data (2012–Now)](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data)
+Dataset yang digunakan: [Bitcoin Historical Data (2018-Now)]([https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024))
 
 
 ### Jumlah Data dan Fitur
