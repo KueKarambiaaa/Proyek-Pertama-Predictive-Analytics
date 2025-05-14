@@ -118,27 +118,63 @@ Model terbaik dipilih berdasarkan performa tertinggi di data testing.
 
 ## 6. Modeling
 
-Model yang diuji:
-1. **RandomForestRegressor**  
-   - Cocok untuk data non-linear  
-   - Parameter penting: `n_estimators`, `max_depth`  
-   - Kelebihan: robust, tidak mudah overfitting  
-   - Kekurangan: interpretasi lebih sulit
+### Model 1: RandomForestRegressor
 
-2. **XGBRegressor**  
-   - Model boosting yang powerful  
-   - Parameter penting: `learning_rate`, `n_estimators`, `max_depth`  
-   - Kelebihan: cepat, akurat  
-   - Kekurangan: butuh tuning lebih banyak
+#### Cara Kerja
+Random Forest membangun banyak decision tree dengan data bootstrap.  
+Setiap tree mempertimbangkan subset fitur acak untuk split.  
+Prediksi akhir diambil rata-rata dari semua pohon.
 
-3. **SVR (Support Vector Regression)**  
-   - Cocok untuk regresi dengan margin  
-   - Parameter penting: `kernel`, `C`, `epsilon`  
-   - Kelebihan: stabil, cocok untuk dataset kecil  
-   - Kekurangan: sensitif terhadap skala data dan parameter
+#### Parameter yang digunakan
+- `n_estimators = 100` (default)
+- `max_depth = None` (default)
+- `random_state = 42`
+
+#### Kelebihan/Kekurangan
+- ✅ Stabil, tahan overfitting, robust untuk data non-linear.
+- ❌ Sulit diinterpretasikan.
+
+---
+
+### Model 2: XGBRegressor
+
+#### Cara Kerja
+XGBoost menggunakan teknik boosting, di mana model dibangun bertahap.  
+Setiap iterasi memfokuskan diri pada error sisa dari model sebelumnya.
+
+#### Parameter yang digunakan
+- `n_estimators = 100` (default)
+- `learning_rate = 0.1` (default)
+- `max_depth = 3` (default)
+- `random_state = 42`
+
+#### Kelebihan/Kekurangan
+- ✅ Akurat, cepat, menangani missing value.
+- ❌ Perlu tuning yang lebih teliti.
+
+---
+
+### Model 3: Support Vector Regression (SVR)
+
+#### Cara Kerja
+SVR mencari hyperplane regresi dalam margin epsilon.  
+Data yang berada di luar margin menjadi support vector.  
+Kernel RBF digunakan untuk menangani non-linearitas.
+
+#### Parameter yang digunakan
+- `kernel = 'rbf'` (default)
+- `C = 1.0` (default)
+- `epsilon = 0.1` (default)
+- `gamma = 'scale'` (default)
+
+#### Kelebihan/Kekurangan
+- ✅ Stabil pada dataset kecil, mampu menangani non-linear.
+- ❌ Sensitif terhadap parameter dan skala data.
+
+---
 
 ### Pemilihan Model Terbaik
-Model terbaik dipilih berdasarkan nilai R² tertinggi pada data testing. Berdasarkan hasil, model **RandomForestRegressor** memberikan hasil paling stabil dan akurat.
+Model **RandomForestRegressor** dipilih karena memiliki performa tertinggi dengan R² **0.957** di data testing.
 
 ---
 
