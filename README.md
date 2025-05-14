@@ -121,9 +121,7 @@ Model terbaik dipilih berdasarkan performa tertinggi di data testing.
 ### Model 1: RandomForestRegressor
 
 #### Cara Kerja
-Random Forest membangun banyak decision tree dengan data bootstrap.  
-Setiap tree mempertimbangkan subset fitur acak untuk split.  
-Prediksi akhir diambil rata-rata dari semua pohon.
+Random Forest membangun banyak decision tree dengan data bootstrap, Setiap tree mempertimbangkan subset fitur acak untuk split Prediksi akhir diambil rata-rata dari semua pohon.
 
 #### Parameter yang digunakan
 - `n_estimators = 100` (default)
@@ -139,8 +137,7 @@ Prediksi akhir diambil rata-rata dari semua pohon.
 ### Model 2: XGBRegressor
 
 #### Cara Kerja
-XGBoost menggunakan teknik boosting, di mana model dibangun bertahap.  
-Setiap iterasi memfokuskan diri pada error sisa dari model sebelumnya.
+XGBoost menggunakan teknik boosting, di mana model dibangun bertahap, dan setiap iterasi memfokuskan diri pada error sisa dari model sebelumnya.
 
 #### Parameter yang digunakan
 - `n_estimators = 100` (default)
@@ -157,9 +154,7 @@ Setiap iterasi memfokuskan diri pada error sisa dari model sebelumnya.
 ### Model 3: Support Vector Regression (SVR)
 
 #### Cara Kerja
-SVR mencari hyperplane regresi dalam margin epsilon.  
-Data yang berada di luar margin menjadi support vector.  
-Kernel RBF digunakan untuk menangani non-linearitas.
+SVR mencari hyperplane regresi dalam margin epsilon Data yang berada di luar margin menjadi support vector Kernel RBF digunakan untuk menangani non-linearitas
 
 #### Parameter yang digunakan
 - `kernel = 'rbf'` (default)
