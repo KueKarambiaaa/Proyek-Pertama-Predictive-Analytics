@@ -47,7 +47,7 @@ Dataset yang digunakan: [Bitcoin Historical Data (2018-Now)](https://www.kaggle.
 
 ### Jumlah Data dan Fitur
 
-Dataset memiliki total **2.691 baris** dan **11 kolom**. Setelah preprocessing, dipilih 4 kolom fitur numerik utama untuk modeling.
+Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, dipilih 4 kolom fitur numerik utama untuk modeling.
 
 ### Struktur Data
 
