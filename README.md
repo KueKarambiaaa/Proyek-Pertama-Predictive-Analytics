@@ -1,9 +1,8 @@
+# 📊 Prediksi Harga Bitcoin 2018–2025 Menggunakan Machine Learning
 
-# 📊 Prediksi Harga Bitcoin 2018–2025 Menggunakan Machine Learning & Deep Learning
-
-**Nama**: Rahmi Amilia  
-**Judul Proyek**: Predictive Analytics: Bitcoin Historical Datasets  
-**Domain**: Keuangan / Investasi / Cryptocurrency  
+**Nama**: Rahmi Amilia
+**Judul Proyek**: Predictive Analytics: Bitcoin Historical Datasets
+**Domain**: Keuangan / Investasi / Cryptocurrency
 **Platform Dataset**: [Kaggle - Bitcoin Historical Datasets](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024)
 
 ---
@@ -14,121 +13,156 @@ Cryptocurrency seperti Bitcoin telah menjadi salah satu aset digital paling popu
 
 Menurut [Nakamoto (2008)](https://bitcoin.org/bitcoin.pdf), Bitcoin dirancang sebagai sistem kas elektronik peer-to-peer. Perkembangannya memicu banyak penelitian untuk memodelkan harga mata uang digital ini.
 
-> Referensi:  
-> - Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*.  
-> - McNally, S., Roche, J., & Caton, S. (2018). Predicting the Price of Bitcoin Using Machine Learning.
+> Referensi:
+>
+> * Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*.
+> * McNally, S., Roche, J., & Caton, S. (2018). Predicting the Price of Bitcoin Using Machine Learning.
 
 ---
+
 ## 2. Business Understanding
 
 ### Problem Statement
+
 Bagaimana memprediksi harga penutupan Bitcoin harian berdasarkan data historis agar dapat digunakan dalam pengambilan keputusan keuangan?
 
 ### Goals
-Membangun model prediksi harga Bitcoin berbasis machine learning dan deep learning untuk memperkirakan harga di masa depan menggunakan data historis.
+
+Membuat model machine learning untuk memprediksi nilai `Close` (harga penutupan) Bitcoin secara akurat berdasarkan fitur historis (`Open`, `High`, `Low`, `Volume`).
 
 ### Solution Statement
-Model prediktif dibangun menggunakan beberapa pendekatan:
-- **Machine Learning**: Random Forest, XGBoost, SVR
-- **Deep Learning**: LSTM (Long Short-Term Memory), karena mampu mengenali pola dari data time series.
-- Evaluasi model dilakukan menggunakan MAE, MSE, dan R². Model terbaik digunakan untuk peramalan harga di masa mendatang.
+
+Untuk mencapai tujuan prediksi, digunakan dua pendekatan utama:
+
+* Algoritma klasik: `RandomForestRegressor`, `XGBRegressor`, dan `SVR`
+* Pendekatan Deep Learning menggunakan model **LSTM (Long Short-Term Memory)** yang lebih cocok untuk data time series.
+
+Seluruh model dievaluasi menggunakan metrik MAE, MSE, dan R² Score. Model terbaik akan digunakan untuk prediksi harga di masa mendatang.
 
 ---
 
 ## 3. Data Understanding
 
-Dataset: `btc_1d_data_2018_to_2025.csv`  
-Sumber: Kaggle  
-Jumlah data: **2675 baris** dan **12 kolom**
+Dataset yang digunakan: [Bitcoin Historical Data (2018-Now)](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024)
 
-### Kolom dalam Dataset
-| Kolom                          | Deskripsi                                        |
-|-------------------------------|--------------------------------------------------|
-| Open time                     | Tanggal & waktu pembukaan candle                |
-| Open                          | Harga pembukaan                                 |
-| High                          | Harga tertinggi                                 |
-| Low                           | Harga terendah                                  |
-| Close                         | Harga penutupan (target)                        |
-| Volume                        | Volume transaksi                                 |
-| Quote asset volume            | Volume dalam quote asset                        |
-| Number of trades              | Jumlah transaksi                                 |
-| Taker buy base asset volume   | Volume beli base asset                          |
-| Taker buy quote asset volume  | Volume beli quote asset                         |
-| Mean_Price                    | Rata-rata dari High dan Low                     |
+### Jumlah Data dan Fitur
+
+Dataset memiliki total **2.691 baris** dan **11 kolom**. Setelah preprocessing, dipilih 4 kolom fitur numerik utama untuk modeling.
+
+### Struktur Data
+
+* `Open Time`: Waktu pembukaan data (timestamp)
+* `Open`: Harga pembukaan
+* `High`: Harga tertinggi
+* `Low`: Harga terendah
+* `Close`: Harga penutupan
+* `Volume`: Volume transaksi
+* `Close Time`: Waktu penutupan data
+* `Quote Asset Volume`: Volume dalam bentuk quote asset
+* `Number of Trades`: Jumlah transaksi
+* `Taker Buy Base Asset Volume`
+* `Taker Buy Quote Asset Volume`
 
 ---
 
 ## 4. Data Preparation
 
-Berikut urutan teknik data preparation yang digunakan:
+Teknik data preparation dilakukan sebagai berikut:
 
-1. **Konversi Tipe Data**: Kolom `Open time` dikonversi ke datetime
-2. **Penghapusan Kolom**: `Close time` dan kolom irrelevan lainnya dihapus
-3. **Pembuatan Fitur**: `Mean_Price = (High + Low) / 2`
-4. **Seleksi Fitur**: Memilih fitur numerik yang relevan
-5. **Normalisasi**: Dengan `MinMaxScaler`
-6. **Pemisahan Data**: 80% training, 20% testing (tanpa shuffle)
-7. **Pembentukan Dataset Time Series untuk LSTM**: Menggunakan windowing
+1. **Konversi tipe data**: Kolom `Open Time` diubah menjadi format datetime.
+2. **Penghapusan kolom**: Kolom `Close Time` dihapus karena tidak relevan.
+3. **Penambahan fitur baru**: Membuat kolom `Mean_Price` (rata-rata dari `High` dan `Low`) – meskipun tidak digunakan dalam modeling akhir.
+4. **Normalisasi**: Fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan `MinMaxScaler`.
+5. **Split Data**: Dataset dibagi 80:20 tanpa shuffle karena merupakan data time series.
+
+> ⚠️ *Catatan*: Tidak terdapat kolom `Market Cap` pada dataset ini.
 
 ---
 
 ## 5. Model Development
 
-### Model LSTM (Long Short-Term Memory)
+### Model 1: RandomForestRegressor
 
-LSTM digunakan untuk mempelajari pola dari urutan data historis.
+**Cara Kerja**: Random Forest membangun banyak decision tree dan menggabungkan hasilnya untuk membuat prediksi.
+**Parameter**: `n_estimators=100`, `max_depth=None`, `random_state=42`
 
-#### Arsitektur Model:
-```python
-model = Sequential()
-model.add(LSTM(50, return_sequences=True, input_shape=(X_train.shape[1], 1)))
-model.add(Dropout(0.2))
-model.add(LSTM(50, return_sequences=False))
-model.add(Dropout(0.2))
-model.add(Dense(25))
-model.add(Dense(1))
-model.compile(optimizer='adam', loss='mean_squared_error')
-```
+### Model 2: XGBRegressor
 
-#### Parameter Training:
-- Epoch: 100
-- Batch size: 64
-- Optimizer: Adam
-- Loss Function: Mean Squared Error
+**Cara Kerja**: XGBoost membangun model secara bertahap dan mengoptimalkan prediksi berdasarkan kesalahan sebelumnya.
+**Parameter**: `n_estimators=100`, `learning_rate=0.1`, `max_depth=3`, `random_state=42`
+
+### Model 3: Support Vector Regression (SVR)
+
+**Cara Kerja**: SVR mencari hyperplane terbaik dalam margin epsilon dengan kernel RBF.
+**Parameter**: `kernel='rbf'`, `C=1.0`, `epsilon=0.1`, `gamma='scale'`
+
+### Model 4: LSTM (Long Short-Term Memory)
+
+**Cara Kerja**: LSTM adalah jaringan saraf berulang yang dapat mengingat pola jangka panjang, cocok untuk deret waktu. Input data diubah ke bentuk 3D (`samples`, `timesteps`, `features`).
+
+**Arsitektur**:
+
+* LSTM layer dengan 64 unit
+* Dropout 0.2
+* Dense output layer
+
+**Parameter Training**:
+
+* Epochs: 50
+* Batch Size: 32
+* Optimizer: Adam
+* Loss Function: Mean Squared Error
 
 ---
 
 ## 6. Evaluation
 
 ### Metrik Evaluasi:
-- **MAE (Mean Absolute Error)**
-- **RMSE (Root Mean Squared Error)**
-- **R² Score**
 
-### Hasil Evaluasi Model LSTM:
-| Metrik | Nilai     |
-|--------|-----------|
-| MAE    | 317.02    |
-| RMSE   | 405.91    |
-| R²     | 0.914     |
+* **MAE (Mean Absolute Error)**
+* **MSE (Mean Squared Error)**
+* **R² Score (Koefisien Determinasi)**
 
-> Model LSTM menunjukkan performa yang sangat baik dalam memprediksi harga Bitcoin, dan unggul dibanding model lainnya pada data time series.
+### Hasil Evaluasi:
+
+| Model                 | MAE      | MSE      | R² Score |
+| --------------------- | -------- | -------- | -------- |
+| RandomForestRegressor | 9179.32  | 15520.82 | 0.957    |
+| XGBRegressor          | 10122.21 | 16573.84 | 0.23     |
+| SVR                   | 32494.02 | 41278.32 | -3.76    |
+| LSTM                  | 9230.57  | 15780.42 | 0.89     |
+
+Model LSTM menunjukkan performa yang baik dan dapat menjadi pendekatan alternatif untuk prediksi data time series, meski RandomForest memberikan hasil terbaik.
 
 ---
 
-## 7. Kesimpulan
+## 7. Dampak terhadap Business Understanding
 
-Model regresi dan deep learning berhasil digunakan untuk memprediksi harga penutupan Bitcoin. Model LSTM memberikan hasil terbaik dan dapat digunakan sebagai baseline untuk pengembangan prediksi harga berbasis time series di masa depan.
+Model prediksi harga Bitcoin ini terbukti efektif dalam menjawab *problem statement*. RandomForestRegressor menghasilkan nilai R² sebesar **0.957**, menjadikannya pilihan terbaik untuk digunakan dalam:
+
+* Mendukung pengambilan keputusan investasi jangka pendek
+* Menyusun strategi beli/jual oleh trader
+* Membangun sistem rekomendasi atau dashboard analitik untuk investor
+
+Model LSTM menunjukkan potensi besar untuk pengembangan lanjutan, terutama dalam konteks deret waktu jangka panjang.
+
+---
+
+## 8. Kesimpulan
+
+Model regresi berhasil digunakan untuk memprediksi harga penutupan Bitcoin. RandomForestRegressor terbukti memberikan hasil terbaik berdasarkan MAE dan R². Model LSTM juga menunjukkan performa yang kompetitif dan cocok untuk pendekatan lanjutan dalam data time series.
 
 ### Saran Pengembangan:
-- Tambahkan fitur eksternal seperti data sentimen atau indikator ekonomi
-- Coba arsitektur lain seperti GRU, Bi-LSTM
-- Prediksi multistep (lebih dari 1 hari ke depan)
+
+* Menambahkan fitur eksternal seperti indikator makroekonomi atau sentimen media sosial
+* Melakukan prediksi multistep (misalnya 7 hari ke depan)
+* Eksplorasi model deep learning lain seperti GRU atau Transformer
 
 ---
 
-## 8. Referensi
+## 9. Referensi
 
-- Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*
-- McNally, S. et al. (2018). *Predicting the Price of Bitcoin Using Machine Learning*
-- [Kaggle Dataset - Bitcoin Historical Data](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024)
+* Nakamoto, S. (2008). *Bitcoin: A Peer-to-Peer Electronic Cash System*
+* McNally, S. et al. (2018). *Predicting the Price of Bitcoin Using Machine Learning*
+* [Kaggle Dataset - Bitcoin Historical Data](https://www.kaggle.com/datasets/mczielinski/bitcoin-historical-data)
+* scikit-learn, XGBoost, Keras, Pandas documentation
