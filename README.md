@@ -71,11 +71,8 @@ Teknik data preparation dilakukan sebagai berikut:
 
 1. **Konversi tipe data**: Kolom `Open Time` diubah menjadi format datetime.
 2. **Penghapusan kolom**: Kolom `Close Time` dihapus karena tidak relevan.
-3. **Penambahan fitur baru**: Membuat kolom `Mean_Price` (rata-rata dari `High` dan `Low`) – meskipun tidak digunakan dalam modeling akhir.
-4. **Normalisasi**: Fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan `MinMaxScaler`.
-5. **Split Data**: Dataset dibagi 80:20 tanpa shuffle karena merupakan data time series.
-
-> ⚠️ *Catatan*: Tidak terdapat kolom `Market Cap` pada dataset ini.
+3. **Normalisasi**: Fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan `MinMaxScaler`.
+4. **Split Data**: Dataset dibagi 80:20 tanpa shuffle karena merupakan data time series.
 
 ---
 
