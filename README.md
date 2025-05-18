@@ -67,12 +67,23 @@ Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, 
 
 ## 4. Data Preparation
 
-Teknik data preparation dilakukan sebagai berikut:
+Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 
-1. **Konversi tipe data**: Kolom `Open Time` diubah menjadi format datetime.
-2. **Penghapusan kolom**: Kolom `Close Time` dihapus karena tidak relevan.
-3. **Normalisasi**: Fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan `MinMaxScaler`.
-4. **Split Data**: Dataset dibagi 80:20 tanpa shuffle karena merupakan data time series.
+1. **Konversi Tipe Data:**  
+   Kolom `Open time` diubah menjadi format datetime untuk memudahkan proses pemrosesan data deret waktu (*time series*).
+
+2. **Penghapusan Nilai Kosong (Missing Values):**  
+   Dilakukan penghapusan terhadap seluruh baris yang memiliki nilai kosong (*missing values*) dengan menggunakan fungsi `dropna()` dari pandas. Hal ini bertujuan untuk memastikan data yang digunakan bersih dan tidak mengganggu proses pelatihan model.
+
+3. **Pemilihan Fitur (Feature Selection):**  
+   Fitur yang digunakan dalam analisis adalah `Open`, `High`, `Low`, dan `Volume`. Sementara itu, fitur `Close` dan `Time` dihapus karena dianggap tidak relevan terhadap tujuan prediksi dan untuk mengurangi kompleksitas model.
+
+4. **Normalisasi Data:**  
+   Seluruh fitur numerik (`Open`, `High`, `Low`, `Volume`) dinormalisasi menggunakan teknik *Min-Max Scaling* dengan bantuan `MinMaxScaler` dari library `sklearn.preprocessing`. Hal ini dilakukan untuk memastikan semua fitur berada dalam skala yang sama, sehingga model dapat belajar secara optimal.
+
+5. **Split Data:**  
+   Dataset dibagi menjadi data latih dan data uji dengan rasio 80:20 tanpa dilakukan *shuffle* karena data bersifat time series. Hal ini bertujuan untuk menjaga urutan kronologis data selama proses pelatihan dan evaluasi model.
+
 
 ---
 
@@ -119,15 +130,16 @@ Teknik data preparation dilakukan sebagai berikut:
 * **MAE (Mean Absolute Error)**
 * **MSE (Mean Squared Error)**
 * **R² Score (Koefisien Determinasi)**
+* **LSTM (Long Short-Term Memory)**
 
 ### Hasil Evaluasi:
 
 | Model                 | MAE      | MSE      | R² Score |
 | --------------------- | -------- | -------- | -------- |
-| RandomForestRegressor | 9179.32  | 15520.82 | 0.957    |
+| RandomForestRegressor | 9179.32  | 15520.82 | 0.33    |
 | XGBRegressor          | 10122.21 | 16573.84 | 0.23     |
 | SVR                   | 32494.02 | 41278.32 | -3.76    |
-| LSTM                  | 9230.57  | 15780.42 | 0.89     |
+| LSTM                  | 69058.20  | 71601.46 | -13.33     |
 
 Model LSTM menunjukkan performa yang baik dan dapat menjadi pendekatan alternatif untuk prediksi data time series, meski RandomForest memberikan hasil terbaik.
 
