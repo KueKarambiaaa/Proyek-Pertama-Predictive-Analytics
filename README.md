@@ -60,8 +60,20 @@ Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, 
 * `Close Time`: Waktu penutupan data
 * `Quote Asset Volume`: Volume dalam bentuk quote asset
 * `Number of Trades`: Jumlah transaksi
-* `Taker Buy Base Asset Volume`
-* `Taker Buy Quote Asset Volume`
+* `Taker Buy Base Asset Volume` : Volume aset dasar
+* `Taker Buy Quote Asset Volume` : Volume dalam bentuk aset kutipan
+
+Sebelum dilakukan pembersihan, data memiliki:
+- **Nilai kosong (missing values)**: 0 baris
+- **Duplikat**: 0 baris
+
+Hal ini menunjukkan bahwa dataset dalam kondisi relatif bersih sehingga tidak diperlukan banyak pembersihan data. Namun, proses `dropna()` tetap dilakukan untuk memastikan tidak ada nilai kosong yang tidak terdeteksi secara eksplisit.
+
+Beberapa fitur yang relevan dijelaskan lebih lanjut agar pembaca memahami konteksnya:
+
+- `Taker Buy Base Asset Volume`: Volume aset dasar (misalnya BTC) yang dibeli oleh market taker (pembeli agresif).
+- `Taker Buy Quote Asset Volume`: Volume dalam bentuk aset kutipan (misalnya USDT/USD) dari transaksi pembelian oleh market taker.
+- `Quote Asset Volume`: Total volume transaksi dalam bentuk quote asset selama periode tertentu.
 
 ---
 
@@ -110,7 +122,7 @@ Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 
 **Arsitektur**:
 
-* LSTM layer dengan 64 unit
+* LSTM layer dengan 50 unit
 * Dropout 0.2
 * Dense output layer
 
@@ -134,12 +146,18 @@ Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 
 ### Hasil Evaluasi:
 
-| Model                 | MAE      | MSE      | R² Score |
+| Model                 | MAE      | RMSE (USD)      | R² Score |
 | --------------------- | -------- | -------- | -------- |
 | RandomForestRegressor | 9179.32  | 15520.82 | 0.33    |
 | XGBRegressor          | 10122.21 | 16573.84 | 0.23     |
 | SVR                   | 32494.02 | 41278.32 | -3.76    |
 | LSTM                  | 69058.20  | 71601.46 | -13.33     |
+
+Nilai **RMSE (Root Mean Square Error)** merupakan akar dari MSE dan menggambarkan rata-rata kesalahan prediksi dalam satuan **USD**, sehingga lebih mudah diinterpretasikan oleh pengguna non-teknis.
+
+### Interpretasi R² Score
+
+Nilai R² Score menunjukkan seberapa baik model menjelaskan variasi dari data aktual. Nilai R² mendekati 1 berarti model sangat akurat, sementara nilai negatif menunjukkan model tidak mampu mengikuti pola data sama sekali.
 
 Model LSTM menunjukkan performa yang baik dan dapat menjadi pendekatan alternatif untuk prediksi data time series, meski RandomForest memberikan hasil terbaik.
 
