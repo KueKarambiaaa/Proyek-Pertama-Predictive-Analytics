@@ -151,7 +151,7 @@ Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 | RandomForestRegressor | 9179.32  | 15520.82 | 0.33    |
 | XGBRegressor          | 10122.21 | 16573.84 | 0.23     |
 | SVR                   | 32494.02 | 41278.32 | -3.76    |
-| LSTM                  | 69058.20  | 71602.09 | -13.33     |
+| LSTM                  | 69058.86  | 71602.09 | -13.33     |
 
 Nilai **RMSE (Root Mean Square Error)** merupakan akar dari MSE dan menggambarkan rata-rata kesalahan prediksi dalam satuan **USD**, sehingga lebih mudah diinterpretasikan oleh pengguna non-teknis.
 
