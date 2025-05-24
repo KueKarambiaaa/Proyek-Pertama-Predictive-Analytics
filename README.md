@@ -47,7 +47,7 @@ Dataset yang digunakan: [Bitcoin Historical Data (2018-Now)](https://www.kaggle.
 
 ### Jumlah Data dan Fitur
 
-Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, dipilih 4 kolom fitur numerik utama untuk modeling.
+Dataset memiliki total **2.675 baris** dan **11 kolom**. Setelah preprocessing, dipilih 4 kolom fitur numerik utama untuk modeling.
 
 ### Struktur Data
 
@@ -57,7 +57,7 @@ Dataset memiliki total **2.675 baris** dan **12 kolom**. Setelah preprocessing, 
 * `Low`: Harga terendah
 * `Close`: Harga penutupan
 * `Volume`: Volume transaksi
-* `Close Time`: Waktu penutupan data
+* `Mean_Price`: Harga rata-rata selama interval
 * `Quote Asset Volume`: Volume dalam bentuk quote asset
 * `Number of Trades`: Jumlah transaksi
 * `Taker Buy Base Asset Volume` : Volume aset dasar
@@ -123,7 +123,7 @@ Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 **Arsitektur**:
 
 * LSTM layer dengan 50 unit
-* Dropout 0.2
+* Dropout 0.1
 * Dense output layer
 
 **Parameter Training**:
@@ -151,7 +151,7 @@ Tahap *data preparation* dilakukan melalui beberapa langkah berikut:
 | RandomForestRegressor | 9179.32  | 15520.82 | 0.33    |
 | XGBRegressor          | 10122.21 | 16573.84 | 0.23     |
 | SVR                   | 32494.02 | 41278.32 | -3.76    |
-| LSTM                  | 69058.20  | 71601.46 | -13.33     |
+| LSTM                  | 69058.20  | 71602.09 | -13.33     |
 
 Nilai **RMSE (Root Mean Square Error)** merupakan akar dari MSE dan menggambarkan rata-rata kesalahan prediksi dalam satuan **USD**, sehingga lebih mudah diinterpretasikan oleh pengguna non-teknis.
 
