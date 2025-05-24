@@ -1,8 +1,11 @@
 # 📊 Prediksi Harga Bitcoin 2018–2025 Menggunakan Machine Learning
 
 **Nama**: Rahmi Amilia
+
 **Judul Proyek**: Predictive Analytics: Bitcoin Historical Datasets
+
 **Domain**: Keuangan / Investasi / Cryptocurrency
+
 **Platform Dataset**: [Kaggle - Bitcoin Historical Datasets](https://www.kaggle.com/datasets/novandraanugrah/bitcoin-historical-datasets-2018-2024)
 
 ---
